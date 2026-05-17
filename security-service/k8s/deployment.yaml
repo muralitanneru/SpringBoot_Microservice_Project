@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: security-service
-          image: mtanneru/security-service:latest
+          image: 423671573423.dkr.ecr.us-east-1.amazonaws.com/security-service:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 9090

@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: user-service
-          image: mtanneru/user-service:latest
+          image: 423671573423.dkr.ecr.us-east-1.amazonaws.com/user-service:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 9002

@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: service-registry
-          image: mtanneru/service-registry:latest
+          image: 423671573423.dkr.ecr.us-east-1.amazonaws.com/service-registry:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8761
