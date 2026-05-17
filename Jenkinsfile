@@ -1,10 +1,12 @@
 pipeline {
     agent any
 
-    environment {
-        AWS_REGION = 'us-east-1'
-        ECR_REGISTRY = '423671573423.dkr.ecr.us-east-1.amazonaws.com'
-    }
+ienvironment {
+    AWS_REGION = 'us-east-1'
+    ECR_REGISTRY = '423671573423.dkr.ecr.us-east-1.amazonaws.com'
+    JAVA_HOME = '/usr/lib/jvm/java-21-amazon-corretto.x86_64'
+    PATH = "/usr/lib/jvm/java-21-amazon-corretto.x86_64/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+}}
 
     stages {
         stage('Checkout Code') {
