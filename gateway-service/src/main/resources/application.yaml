@@ -1,0 +1,77 @@
+server:
+  port: 9191
+
+spring:
+  application:
+    name: API-GATEWAY
+
+  main:
+    web-application-type: reactive
+
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+
+            # Department Service Route
+            - id: department-service
+              uri: lb://DEPARTMENT-SERVICE
+              predicates:
+                - Path=/departments/**
+              filters:
+                - AuthenticationFilter
+                - name: CircuitBreaker
+                  args:
+                    name: departmentServiceCircuitBreaker
+                    fallbackUri: forward:/departmentServiceFallBack
+
+            # User Service Route
+            - id: user-service
+              uri: lb://USER-SERVICE
+              predicates:
+                - Path=/users/**
+              filters:
+                - AuthenticationFilter
+                - name: CircuitBreaker
+                  args:
+                    name: userServiceCircuitBreaker
+                    fallbackUri: forward:/userServiceFallBack
+
+            # Security Service Route
+            - id: security-service
+              uri: lb://SECURITY-SERVICE
+              predicates:
+                - Path=/auth/**
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://service-registry:8761/eureka/
+
+  instance:
+    prefer-ip-address: true
+
+resilience4j:
+  timelimiter:
+    instances:
+      departmentServiceCircuitBreaker:
+        timeoutDuration: 4s
+      userServiceCircuitBreaker:
+        timeoutDuration: 4s
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+
+  zipkin:
+    tracing:
+      endpoint: http://zipkin:9411/api/v2/spans
+
+  endpoints:
+    web:
+      exposure:
+        include: "*"
