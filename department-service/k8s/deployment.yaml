@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: department-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: department-service
+  template:
+    metadata:
+      labels:
+        app: department-service
+    spec:
+      containers:
+        - name: department-service
+          image: mtanneru/department-service:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 9001

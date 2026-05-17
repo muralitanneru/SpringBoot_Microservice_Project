@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: security-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: security-service
+  template:
+    metadata:
+      labels:
+        app: security-service
+    spec:
+      containers:
+        - name: security-service
+          image: mtanneru/security-service:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 9090
